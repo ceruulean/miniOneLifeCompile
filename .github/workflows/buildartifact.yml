@@ -1,0 +1,42 @@
+name: build artifacts
+
+on: push
+  tags:
+    - '*_v[0-9]+'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install system dependencies
+        run: |
+            ./getDependencies.sh &&
+            ./cloneRepos.sh &&
+            ./applyFixesAndOverride.sh
+
+      - name: Build Hetuw artifacts
+        run: |
+            ./repo/changeWhatToBuild.sh tholHetuw
+            ./compile.sh 1 &&
+            ./cleanOldBuildsAndOptionallyCaches.sh 1
+            
+            ./repo/changeWhatToBuild.sh townplanner
+            ./editor.sh 1 &&
+            ./cleanOldBuildsAndOptionallyCaches.sh 1
+
+            mkdir ../bin
+            
+            mv ../output/OneLifeApp ./Hetuw_with_minitech_Linux 
+            mv ../output/EditOneLife ./TownPlanner_Linux 
+#            cp -rL ../output ../bin/hetuw
+            
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: |
+            ./Hetuw_with_minitech_Linux
+            ./TownPlanner_Linux
