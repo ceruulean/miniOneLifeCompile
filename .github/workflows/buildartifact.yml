@@ -2,7 +2,7 @@ name: build artifacts
 on:
   push:
     tags:
-      - "*_v[0-9]+"
+      - "*_?v[0-9]+"
 
 permissions:
   contents: write
