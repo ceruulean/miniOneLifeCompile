@@ -14,20 +14,22 @@ jobs:
           ./getDependencies.sh &&
           ./cloneRepos.sh &&
           ./applyFixesAndOverride.sh
+
       - name: Build Hetuw artifacts
         run: |
-          ./repo/changeWhatToBuild.sh tholHetuw
+          yes | ./repo/changeWhatToBuild.sh tholHetuw
           ./compile.sh 1 &&
           ./cleanOldBuildsAndOptionallyCaches.sh 1
 
-          ./repo/changeWhatToBuild.sh townplanner
+          yes | ./repo/changeWhatToBuild.sh townplanner
           ./editor.sh 1 &&
           ./cleanOldBuildsAndOptionallyCaches.sh 1
 
           mkdir ../bin
 
-          mv ../output/OneLifeApp ./Hetuw_with_minitech_Linux 
-          mv ../output/EditOneLife ./TownPlanner_Linux 
+          mv ../output/OneLife ./Hetuw_with_minitech_Linux
+          mv ../output/EditOneLife ./TownPlanner_Linux
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

@@ -45,12 +45,12 @@ if [[ $PLATFORM == 5 ]] && [ ! -f SDL.dll ]; then cp ../OneLife/build/win32/SDL.
 if [[ $PLATFORM == 5 ]] && [ ! -f clearCache.bat ]; then cp ../OneLife/build/win32/clearCache.bat .; fi
 
 
-##### Copy to Game Folder and Run
+##### Copy to Game Folder
 if [[ $PLATFORM == 5 ]]; then
 	mv -f ../OneLife/gameSource/OneLife.exe .
-	cmd.exe /c OneLife.exe
+#	cmd.exe /c OneLife.exe
 fi
 if [[ $PLATFORM == 1 ]]; then
 	mv -f ../OneLife/gameSource/OneLife .
-	./OneLife
+#	./OneLife
 fi
