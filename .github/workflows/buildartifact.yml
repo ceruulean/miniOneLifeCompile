@@ -3,6 +3,10 @@ on:
   push:
     tags:
       - "*_v[0-9]+"
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -38,3 +42,5 @@ jobs:
           files: |
             ./Hetuw_with_minitech_Linux
             ./TownPlanner_Linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
