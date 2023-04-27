@@ -31,8 +31,10 @@ jobs:
 
           mkdir ../bin
 
-          mv ../output/OneLife ./Hetuw_with_minitech_Linux
-          mv ../output/EditOneLife ./TownPlanner_Linux
+          mv ../output/OneLife ../output/Hetuw_with_minitech_Linux
+          mv ../output/EditOneLife ../output/TownPlanner_Linux
+
+          cp -rL ../output ./2hol_ubuntu_20-04
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -41,7 +43,8 @@ jobs:
           body: |
             Hetuw modded 2hol distributions.
           files: |
-            ./Hetuw_with_minitech_Linux
-            ./TownPlanner_Linux
+            ../output/Hetuw_with_minitech_Linux
+            ../output/TownPlanner_Linux
+            ./2hol_ubuntu_20-04
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
